@@ -157,6 +157,7 @@ for (let j = 1; j <= 100; j++) {
       e.currentTarget.classList.add("grid-selected-cell");
       let cellAdress = e.currentTarget.getAttribute("data-address");
       formulaSelectedCell.value = cellAdress;
+      formulaInput.value = dataObj[cellAdress].formula;
 
       oldCell = e.currentTarget;
     });
