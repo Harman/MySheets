@@ -192,7 +192,6 @@ formulaInput.addEventListener("change", function (e) {
   let formula = e.currentTarget.value;
 
   let selectedCellAddress = oldCell.getAttribute("data-address");
-  dataObj[selectedCellAddress].formula = formula;
 
   let formulaArr = formula.split(" ");
   let elementsArray = [];
@@ -209,10 +208,15 @@ formulaInput.addEventListener("change", function (e) {
     }
   }
 
-  // if(checkCircularReference(elementsArray, selectedCellAddress)) {
+  let visitedCells = {};
+
+  // if(checkCircularReference(elementsArray, selectedCellAddress, visitedCells)) {
   //   formulaInput.value = "CIRCULAR REFERENCE DETECTED!";
+  //   window.alert("Err: Circular Reference! Recheck formula, cell dependent on itself");
   //   return;
   // }
+
+  dataObj[selectedCellAddress].formula = formula;
 
   let oldUpstream = dataObj[selectedCellAddress].upStream;
   for (let k = 0; k < oldUpstream.length; k++) {
@@ -303,6 +307,20 @@ function updateDownStreamElements(currCellAdress) {
   }
 }
 
-// function checkCircularReference(elementsArray, selectedCellAddress) {
+// function checkCircularReference(elementsArray, selectedCellAddress, visitedCells) {
+  
+//   for(let i = 0; i < elementsArray.length; i++) {
+//     if(elementsArray[i] == selectedCellAddress)
+//       return true;
+//     if(visitedCells[elementsArray[i]] == true)
+//       return true;
+    
+//       else {
+//         visitedCells[elementsArray[i]] = true;
+//         checkCircularReference(dataObj[elementsArray[i]].upStream, selectedCellAddress, visitedCells);
+//         visitedCells[elementsArray[i]] = false;
+//       } 
+//   }
 
+//   return false;
 // }
